@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 //import Input from './components/Inpit'
- import {connect} from 'react-redux'
+//import {connect} from 'react-redux'
+ import {useDispatch,useSelector} from 'react-redux'
 // import {countPlus,countMinus} from '../actions'
 import {addTodo,removeTodo,toggle} from '../actions'
 
-const TodoList = (props) => {
+export const TodoList = (props) => {
 
     const [task,setText] = useState('')
 
@@ -39,8 +40,15 @@ const TodoList = (props) => {
 
         //  const props = this.props
 
+        const stateTodos = state => state.todo.todos
+        const todos = useSelector(stateTodos)
+
+        const dispatch = useDispatch()
+
+
+
         const addtodos = () => {
-            props.addTodo(task)
+            dispatch(addTodo(task))
             setText('')
         }
         
@@ -54,8 +62,8 @@ const TodoList = (props) => {
       </div>
       
       <ul>
-         { props.todos.map((todo, index) => (
-          <li key={ index } className={todo.flg? "conp":""}>{ todo.task } <button onClick={ () => props.removeTodo(index) }>削除</button><button onClick={ () => props.toggle(index)}>完了</button></li>
+         { todos.map((todo, index) => (
+          <li key={ index } className={todo.flg? "conp":""}>{ todo.task } <button onClick={() => dispatch(removeTodo(index))}>削除</button><button onClick={ () => dispatch(toggle(index))}>完了</button></li>
          ))}
       </ul>
     </div>
@@ -66,18 +74,18 @@ const TodoList = (props) => {
         )
     
 }
-const mapStateToProps = state => {
-    return {
-        todos:state.todo.todos
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         todos:state.todo.todos
+//     }
+// }
 
-const mapDispatchToProps = dispatch => ({
-    addTodo:(task) => dispatch(addTodo(task)),
-    removeTodo:(index) => dispatch(removeTodo(index)),
-    toggle:(index) => dispatch(toggle(index)),
+// const mapDispatchToProps = dispatch => ({
+//     addTodo:(task) => dispatch(addTodo(task)),
+//     removeTodo:(index) => dispatch(removeTodo(index)),
+//     toggle:(index) => dispatch(toggle(index)),
 
-})
+// })
 // const mapStateToProps = state => ({
 //     val: state.counter.val
 // })
@@ -87,5 +95,5 @@ const mapDispatchToProps = dispatch => ({
 //     countMinus:()=> dispatch(countMinus())
 // })
 
-//export default Todo;
-export default connect (mapStateToProps,mapDispatchToProps)(TodoList)
+// export default TodoList;
+//export default connect (mapStateToProps,mapDispatchToProps)(TodoList)

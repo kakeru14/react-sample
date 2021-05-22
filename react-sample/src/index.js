@@ -7,15 +7,17 @@ import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
+import RouteTodo from './components/RouteTodo';
 //import Pro from './components/Pro'
-import TodoList from './components/TodoList'
+//import TodoList from './components/TodoList'
+//import RouteTodo from './components/RouteTodo'
 
 const store = createStore(reducer)
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <TodoList />
+    <RouteTodo />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

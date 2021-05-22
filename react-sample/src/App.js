@@ -28,6 +28,13 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import Button from './components/Button'
 import FunButton from './components/FunButton'
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import {TodoList} from './components/TodoList'
+import {About} from './components/About'
+import {Home} from './components/Home'
+import {Users} from './components/Users'
+import {Topics} from './components/Topic'
+import Nav from './components/Navi'
 
 class App extends Component{
 
@@ -129,9 +136,50 @@ class App extends Component{
       console.log(e)
     }
 
+    // const Home = () => {
+    //   return <h2>HOME</h2>
+    // }
+    // const About = () => {
+    //   return <h2>ABOUT</h2>
+    // }
+    // const Users = () => {
+    //   return <h2>USERS</h2>
+    // }
+
+    
+
     
     return (
     <>
+    <Router>
+      <div>
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to='/'>Home</Link>
+            </li>
+            <li>
+              <Link to='/about/100'>About</Link>
+            </li>
+            <li>
+              <Link to='/users/777'>Users</Link>
+            </li>
+            <li>
+              <Link to='/todolist'>TodoList</Link>
+            </li>
+          </ul>
+        </nav> */}
+        <Nav />
+        <Switch>
+          <Route exact path='/about/:aboutId' component={About}/>
+          <Route exact path='/users/:userId' component={Users}/>
+          <Route path='/topics'><Topics /></Route>
+          <Route exact path='/todolist' component={TodoList} />
+          <Route path='/' component={Home}/>
+          
+        </Switch>
+      </div>
+    </Router>
     <div>helooooooo</div>
     <div>{newAnimal}</div>
     <div>{cat}</div>
